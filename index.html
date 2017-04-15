@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Demo</title>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	    <meta name="description" content="Demo project">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="styles.css">
+	</head>
+	<body>
+		<h1>Updating CSS Vaariables with <span class="base-color">Javascript</span></h1>
+
+		<div class="controls">
+			<label for="spacing">Spacing: </label>
+			<input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+			<label for="blur">Blur: </label>
+			<input type="range" name="blur" min="0" max="200" value="100" data-sizing="px">
+
+			<label for="spacing">Base Color: </label>
+			<input type="color" name="base" value="#ffc600">
+		</div><!-- end controls-->
+
+		<img src="http://unsplash.it/800/500?image=899">
+
+		<script>
+		     //select all the inputs. Returns a node list
+			const inputs = document.querySelectorAll('.controls input');
+
+			function handleUpdate() {
+				//const tracks the suffix for the property being changed. Either px or nothing
+				const suffix = this.dataset.sizing || '';
+				//change the css variable inheriting from event
+				//sets var being changed with new value and adds the suffix 
+				//either PX or nothing
+				document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
+			}
+			//event handlers. From the node list of all inputs
+			// lsiten for any changes and mousemoves and send 
+			//that change to handeUpdate, scoped with event 
+			inputs.forEach(input => input.addEventListener('change', handleUpdate));
+			inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+		</script>
+	</body>
+</html>
